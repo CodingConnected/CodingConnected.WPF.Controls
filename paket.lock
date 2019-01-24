@@ -1,0 +1,5 @@
+NUGET
+  remote: https://api.nuget.org/v3/index.json
+    Microsoft-WindowsAPICodePack-Core (1.1.3.3) - restriction: >= net461
+    Microsoft-WindowsAPICodePack-Shell (1.1.3.3) - restriction: >= net461
+      Microsoft-WindowsAPICodePack-Core (>= 1.1.3.3)

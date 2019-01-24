@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("CodingConnected.WPF.Controls")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Common controls used by CodingConnected")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("CodingConnected e.U.")]
 [assembly: AssemblyProduct("CodingConnected.WPF.Controls")]
