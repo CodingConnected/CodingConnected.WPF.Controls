@@ -34,8 +34,7 @@ namespace CodingConnected.WPF.Controls
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             var ok = false;
-            if (value != null)
-                ok = int.TryParse((string)value, out int i);
+            if (value != null) ok = int.TryParse((string)value, out var i);
             return ok ? new ValidationResult(true, "") : new ValidationResult(false, "not int");
         }
     }
@@ -44,8 +43,27 @@ namespace CodingConnected.WPF.Controls
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            var ok = string.IsNullOrEmpty((string)value) || int.TryParse((string)value, out int i);
+            var ok = string.IsNullOrEmpty((string)value) || int.TryParse((string)value, out var i);
             return ok ? new ValidationResult(true, "") : new ValidationResult(false, "not int");
+        }
+    }
+
+    public class DoubleValidate : ValidationRule
+    {
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            var ok = false;
+            if (value != null) ok = double.TryParse((string)value, out var d);
+            return ok ? new ValidationResult(true, "") : new ValidationResult(false, "not double");
+        }
+    }
+
+    public class DoubleNullableValidate : ValidationRule
+    {
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            var ok = string.IsNullOrEmpty((string)value) || double.TryParse((string)value, out var d);
+            return ok ? new ValidationResult(true, "") : new ValidationResult(false, "not double");
         }
     }
 
@@ -114,6 +132,7 @@ namespace CodingConnected.WPF.Controls
                 if (prop.Name != "IsInDesignMode" &&
                     (prop.PropertyType.IsValueType || prop.PropertyType == typeof(string)))
                 {
+                    bool IsReadOnly = prop.SetMethod == null || !prop.SetMethod.IsPublic;
                     if (o.CheckBrowsable)
                     {
                         var _attr = prop.GetCustomAttributes(typeof(BrowsableAttribute), true);
@@ -179,18 +198,34 @@ namespace CodingConnected.WPF.Controls
                     UIElement editor = null;
 
                     // edit string, int and int?
-                    if (prop.PropertyType == typeof(string) || prop.PropertyType == typeof(int) || prop.PropertyType == typeof(int?))
+                    if (prop.PropertyType == typeof(string) || 
+                        prop.PropertyType == typeof(int) || 
+                        prop.PropertyType == typeof(int?) ||
+                        prop.PropertyType == typeof(double) ||
+                        prop.PropertyType == typeof(double?))
                     {
                         editor = new TextBox() { Margin = new Thickness(2) };
                         var binding = new Binding();
                         binding.Path = new PropertyPath(prop.Name);
                         binding.Source = o.BoundObject;
+                        binding.Mode = IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay;
                         binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
                         binding.ValidatesOnDataErrors = true;
                         if (prop.PropertyType == typeof(int?))
                         {
                             binding.TargetNullValue = string.Empty;
                             var role = new IntNullableValidate();
+                            binding.ValidationRules.Add(role);
+                        }
+                        else if (prop.PropertyType == typeof(int))
+                        {
+                            var role = new DoubleValidate();
+                            binding.ValidationRules.Add(role);
+                        }
+                        else if (prop.PropertyType == typeof(int?))
+                        {
+                            binding.TargetNullValue = string.Empty;
+                            var role = new DoubleNullableValidate();
                             binding.ValidationRules.Add(role);
                         }
                         else if (prop.PropertyType == typeof(int))

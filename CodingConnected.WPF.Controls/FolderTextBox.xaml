@@ -11,7 +11,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <TextBox Text="{Binding ElementName=Root,Path=Folder,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="2" />
+        <TextBox Text="{Binding ElementName=root,Path=Folder,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="2" />
         <Button Grid.Column="1" Content=" ... " Click="SelectStdFolderButton_Click" Margin="2" />
     </Grid>
 </UserControl>
