@@ -1,19 +1,6 @@
 ﻿using Microsoft.Win32;
-using Microsoft.WindowsAPICodePack.Dialogs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CodingConnected.WPF.Controls
 {
@@ -49,14 +36,14 @@ namespace CodingConnected.WPF.Controls
         public static readonly DependencyProperty ChooseDialogFilterProperty =
             DependencyProperty.Register("ChooseDialogFilter", typeof(string), typeof(FileTextBox), new PropertyMetadata("*.*|All files"));
 
-        public bool EnsurePathExists
+        public bool CheckFileExists
         {
-            get { return (bool)GetValue(EnsurePathExistsProperty); }
-            set { SetValue(EnsurePathExistsProperty, value); }
+            get { return (bool)GetValue(CheckFileExistsProperty); }
+            set { SetValue(CheckFileExistsProperty, value); }
         }
 
-        public static readonly DependencyProperty EnsurePathExistsProperty =
-            DependencyProperty.Register("EnsurePathExists", typeof(bool), typeof(FileTextBox), new PropertyMetadata(true));
+        public static readonly DependencyProperty CheckFileExistsProperty =
+            DependencyProperty.Register("CheckFileExists", typeof(bool), typeof(FileTextBox), new PropertyMetadata(true));
 
         public FileTextBox()
         {
@@ -65,24 +52,15 @@ namespace CodingConnected.WPF.Controls
 
         private void SelectFileButton_Click(object sender, RoutedEventArgs e)
         {
-            var ofd = new CommonOpenFileDialog
+            var ofd = new OpenFileDialog
             {
-                IsFolderPicker = false,
                 Title = ChooseDialogTitle,
-                EnsurePathExists = EnsurePathExists,
+                Filter = ChooseDialogFilter,
+                CheckFileExists = CheckFileExists,
                 Multiselect = false
             };
 
-            var exts = ChooseDialogFilter.Split('|');
-            if (exts.Length > 0 && exts.Length % 2 == 0)
-            {
-                for (var i = 0; i < exts.Length; i += 2)
-                {
-                    ofd.Filters.Add(new CommonFileDialogFilter(exts[i + 1], exts[i]));
-                }
-            }
-
-            if (ofd.ShowDialog(Window.GetWindow(this)) == CommonFileDialogResult.Ok)
+            if (ofd.ShowDialog(Window.GetWindow(this)) == true)
             {
                 File = ofd.FileName;
             }

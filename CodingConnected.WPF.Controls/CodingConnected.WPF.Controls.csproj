@@ -36,6 +36,8 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,29 +48,38 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BrowsableConditionAttribute.cs" />
-    <Compile Include="EnabledConditionAttribute.cs" />
-    <Compile Include="FolderTextBox.xaml.cs">
+    <Compile Include="FileBrowser\SimpleFileBrowser.xaml.cs">
+      <DependentUpon>SimpleFileBrowser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileBrowser\ImageUtilities.cs" />
+    <Compile Include="FileBrowser\SimpleFileBrowserItem.cs" />
+    <Compile Include="SimplePropertyGrid\BrowsableConditionAttribute.cs" />
+    <Compile Include="SimplePropertyGrid\EnabledConditionAttribute.cs" />
+    <Compile Include="General\FolderTextBox.xaml.cs">
       <DependentUpon>FolderTextBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FileTextBox.xaml.cs">
+    <Compile Include="General\FileTextBox.xaml.cs">
       <DependentUpon>FileTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SimplePropertyEditor.xaml.cs">
+    <Compile Include="SimplePropertyGrid\SimplePropertyEditor.xaml.cs">
       <DependentUpon>SimplePropertyEditor.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="FolderTextBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="FileTextBox.xaml">
+    <Page Include="FileBrowser\SimpleFileBrowser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SimplePropertyEditor.xaml">
+    <Page Include="General\FolderTextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="General\FileTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SimplePropertyGrid\SimplePropertyEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -77,27 +88,8 @@
     <None Include="CodingConnected.WPF.Controls.nuspec" />
     <None Include="paket.references" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
-      <ItemGroup>
-        <Reference Include="Microsoft.WindowsAPICodePack">
-          <HintPath>..\packages\Microsoft-WindowsAPICodePack-Core\lib\net452\Microsoft.WindowsAPICodePack.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
-      <ItemGroup>
-        <Reference Include="Microsoft.WindowsAPICodePack.Shell">
-          <HintPath>..\packages\Microsoft-WindowsAPICodePack-Shell\lib\net452\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
 </Project>
