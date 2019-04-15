@@ -17,7 +17,7 @@
             <Button Content="Back"
         </StackPanel>-->
         <ListView 
-            Grid.Row="2"
+            Grid.Row="2" 
             Name="FileList" HorizontalContentAlignment="Stretch" KeyDown="FileList_KeyDown"
             Grid.RowSpan="2" >
             <ListView.ItemContainerStyle>
