@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace CodingConnected.WPF.Controls
 {
-
     /// <summary>
     /// Interaction logic for FileBrowser.xaml
     /// </summary>
@@ -37,6 +36,32 @@ namespace CodingConnected.WPF.Controls
             DependencyProperty.Register("SelectedFile", typeof(FileSystemInfo), typeof(SimpleFileBrowser), new PropertyMetadata(null));
 
         #endregion // SelectedFile dep.prop.
+
+        #region FileOpenedCommand dep.prop.
+
+        public ICommand FileOpenedCommand
+        {
+            get { return (ICommand)GetValue(FileOpenedCommandProperty); }
+            set { SetValue(FileOpenedCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty FileOpenedCommandProperty =
+            DependencyProperty.Register("FileOpenedCommand", typeof(ICommand), typeof(SimpleFileBrowser), new PropertyMetadata(null));
+
+        #endregion // FileOpenedCommand dep.prop.
+
+        #region SelectedFiles dep.prop.
+
+        public IList SelectedFiles
+        {
+            get { return (IList)GetValue(SelectedFilesProperty); }
+            set { SetValue(SelectedFilesProperty, value); }
+        }
+
+        public static readonly DependencyProperty SelectedFilesProperty =
+            DependencyProperty.Register("SelectedFiles", typeof(IList), typeof(SimpleFileBrowser), new PropertyMetadata(null));
+
+        #endregion // SelectedFiles dep.prop.
 
         #region SelectedDirectory dep.prop.
 
@@ -95,7 +120,51 @@ namespace CodingConnected.WPF.Controls
         private void FileList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var i = ((SimpleFileBrowserItem)((ListView)sender).SelectedItem);
-            if (OpenOnSelect && i?.Item != null) SelectedFile = i.Item;
+            var ii = ((ListView)sender).SelectedItems;
+            if(i != null)
+            {
+                SelectedFile = i.Item;
+            }
+            else
+            {
+                SelectedFile = null;
+            }
+            var files = new List<FileSystemInfo>();
+            if(ii != null && ii.Count > 0)
+            {
+                foreach(SimpleFileBrowserItem bi in ii)
+                {
+                    files.Add(bi.Item);
+                }
+                SelectedFiles = files;
+            }
+            else
+            {
+                SelectedFiles = null;
+            }
+            if (OpenOnSelect)
+            {
+                ExecuteOpen();
+            }
+        }
+
+        private void ExecuteOpen()
+        {
+            if (SelectedFiles != null && SelectedFiles.Count > 0)
+            {
+                if (FileOpenedCommand?.CanExecute(SelectedFiles) == true)
+                {
+                    FileOpenedCommand.Execute(SelectedFiles);
+                }
+            }
+            else if (SelectedFile != null)
+            {
+                var files = new List<FileSystemInfo> { SelectedFile };
+                if (FileOpenedCommand?.CanExecute(files) == true)
+                {
+                    FileOpenedCommand.Execute(files);
+                }
+            }
         }
 
         private void ListViewItem_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -107,19 +176,46 @@ namespace CodingConnected.WPF.Controls
                 switch (i.Item)
                 {
                     case DirectoryInfo di:
-                        _parent = di.Parent;
                         SelectedFile = newDir = di;
+                        if (e.Key == Key.Enter &&
+                            (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift)))
+                        {
+                            ExecuteOpen();
+                            e.Handled = true;
+                            return;
+                        }
+                        _parent = di.Parent;
                         break;
                     case FileInfo fi:
                         SelectedFile = fi;
+                        if (e.Key == Key.Enter)
+                        {
+                            ExecuteOpen();
+                        }
                         break;
                 }
                 e.Handled = true;
             }
-            if (e.Key == Key.Back || e.Key == Key.Left)
+            else if (e.Key == Key.Back || e.Key == Key.Left)
             {
                 newDir = _parent;
                 if (_parent != null) _parent = _parent.Parent;
+            }
+            else if(e.Key >= Key.A && e.Key <= Key.Z)
+            {
+                foreach(var f in _items)
+                {
+                    if (f.Name.ToLower().StartsWith(e.Key.ToString().ToLower()))
+                    {
+                        var id = _items.IndexOf(f);
+                        FileList.SelectedItem = f;
+                        this.UpdateLayout();
+                        var item = ((ListViewItem)FileList.ItemContainerGenerator.ContainerFromIndex(id));
+                        if (item != null) item.Focus();
+                        e.Handled = true;
+                        break;
+                    }
+                }
             }
             if (newDir != null)
             {
@@ -142,6 +238,7 @@ namespace CodingConnected.WPF.Controls
                         break;
                     case FileInfo fi:
                         SelectedFile = fi;
+                        ExecuteOpen();
                         break;
                 }
                 if (newDir != null)

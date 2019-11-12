@@ -18,9 +18,13 @@ namespace CodingConnected.WPF.Controls
 {
     public static class ImageUtilities
     {
+        private static Dictionary<string, ImageSource> _iconsCache = new Dictionary<string, ImageSource>();
+
         public static ImageSource GetIconImage(string filePath)
         {
-            return GetRegisteredIcon(filePath).ToImageSource();
+            var ext = Path.GetExtension(filePath);
+            if (!_iconsCache.ContainsKey(ext)) _iconsCache.Add(ext, GetRegisteredIcon(filePath).ToImageSource());
+            return _iconsCache[ext];
         }
 
         public static System.Drawing.Icon GetRegisteredIcon(string filePath)
