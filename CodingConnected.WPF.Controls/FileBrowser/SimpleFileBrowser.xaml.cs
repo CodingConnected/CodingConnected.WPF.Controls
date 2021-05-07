@@ -16,20 +16,25 @@ namespace CodingConnected.WPF.Controls
     {
         #region Fields
 
-        private List<DriveInfo> _drives;
+        private readonly ObservableCollection<SimpleFileBrowserItem> _items = new ObservableCollection<SimpleFileBrowserItem>();
+        private readonly Dictionary<string, DriveDirectoryState> _driveStates = new Dictionary<string, DriveDirectoryState>();
         private DirectoryInfo _parent;
         private DirectoryInfo _current;
         private string[] _filterExt;
-        private ObservableCollection<SimpleFileBrowserItem> _items;
 
+        internal class DriveDirectoryState
+        {
+            public DirectoryInfo Current { get; set; }
+        }
+        
         #endregion // Fields
 
         #region SelectedFile dep.prop.
 
         public FileSystemInfo SelectedFile
         {
-            get { return (FileSystemInfo)GetValue(SelectedFileProperty); }
-            set { SetValue(SelectedFileProperty, value); }
+            get => (FileSystemInfo)GetValue(SelectedFileProperty);
+            set => SetValue(SelectedFileProperty, value);
         }
 
         public static readonly DependencyProperty SelectedFileProperty =
@@ -41,8 +46,8 @@ namespace CodingConnected.WPF.Controls
 
         public ICommand FileOpenedCommand
         {
-            get { return (ICommand)GetValue(FileOpenedCommandProperty); }
-            set { SetValue(FileOpenedCommandProperty, value); }
+            get => (ICommand)GetValue(FileOpenedCommandProperty);
+            set => SetValue(FileOpenedCommandProperty, value);
         }
 
         public static readonly DependencyProperty FileOpenedCommandProperty =
@@ -54,8 +59,8 @@ namespace CodingConnected.WPF.Controls
 
         public IList SelectedFiles
         {
-            get { return (IList)GetValue(SelectedFilesProperty); }
-            set { SetValue(SelectedFilesProperty, value); }
+            get => (IList)GetValue(SelectedFilesProperty);
+            set => SetValue(SelectedFilesProperty, value);
         }
 
         public static readonly DependencyProperty SelectedFilesProperty =
@@ -67,8 +72,8 @@ namespace CodingConnected.WPF.Controls
 
         public DirectoryInfo SelectedDirectory
         {
-            get { return (DirectoryInfo)GetValue(SelectedDirectoryProperty); }
-            set { SetValue(SelectedDirectoryProperty, value); }
+            get => (DirectoryInfo)GetValue(SelectedDirectoryProperty);
+            set => SetValue(SelectedDirectoryProperty, value);
         }
 
         public static readonly DependencyProperty SelectedDirectoryProperty =
@@ -86,8 +91,8 @@ namespace CodingConnected.WPF.Controls
 
         public bool OpenOnSelect
         {
-            get { return (bool)GetValue(OpenOnSelectProperty); }
-            set { SetValue(OpenOnSelectProperty, value); }
+            get => (bool)GetValue(OpenOnSelectProperty);
+            set => SetValue(OpenOnSelectProperty, value);
         }
 
         public static readonly DependencyProperty OpenOnSelectProperty =
@@ -99,8 +104,8 @@ namespace CodingConnected.WPF.Controls
 
         public string FileFilter
         {
-            get { return (string)GetValue(FileFilterProperty); }
-            set { SetValue(FileFilterProperty, value); }
+            get => (string)GetValue(FileFilterProperty);
+            set => SetValue(FileFilterProperty, value);
         }
 
         public static readonly DependencyProperty FileFilterProperty =
@@ -130,7 +135,7 @@ namespace CodingConnected.WPF.Controls
                 SelectedFile = null;
             }
             var files = new List<FileSystemInfo>();
-            if(ii != null && ii.Count > 0)
+            if (ii.Count > 0)
             {
                 foreach(SimpleFileBrowserItem bi in ii)
                 {
@@ -322,17 +327,31 @@ namespace CodingConnected.WPF.Controls
 
             var root = DriveInfo.GetDrives();
 
-            _drives = new List<DriveInfo>();
-            _items = new ObservableCollection<SimpleFileBrowserItem>();
-
             foreach (var r in root)
             {
-                _drives.Add(r);
+                _driveStates.Add(r.Name, new DriveDirectoryState());
+                DriveCb.Items.Add(r);
             }
-
-            SetDir(_drives.FirstOrDefault()?.RootDirectory);
+            
             FileList.ItemsSource = _items;
             FileList.SelectionChanged += FileList_SelectionChanged;
+            DriveCb.SelectionChanged += DriveCbOnSelectionChanged;
+            DriveCb.SelectedItem = DriveCb.Items[0];
+        }
+
+        private void DriveCbOnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.RemovedItems != null && e.RemovedItems.Count > 0)
+            {
+                var ds = (DriveInfo) e.RemovedItems[0];
+                _driveStates[ds.Name].Current = _current;
+            }
+            if (e.AddedItems != null && e.AddedItems.Count > 0)
+            {
+                var ds = (DriveInfo) e.AddedItems[0];
+                _current = _driveStates[ds.Name].Current ?? ds.RootDirectory;
+                SetDir(_current);
+            }
         }
 
         #endregion // Constructor

@@ -15,8 +15,8 @@
    viewBox="0 0 32 32"
    id="svg4153"
    version="1.1"
-   inkscape:version="0.48.5 r10040"
-   sodipodi:docname="NewFileIcon.svg">
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="FileIcon.svg">
   <defs
      id="defs4155">
     <linearGradient
@@ -130,7 +130,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="6.1890388"
-     inkscape:cx="41.478996"
+     inkscape:cx="0.60027344"
      inkscape:cy="54.78358"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -140,10 +140,10 @@
      inkscape:bbox-paths="true"
      inkscape:bbox-nodes="true"
      inkscape:snap-bbox-edge-midpoints="true"
-     inkscape:window-width="1920"
-     inkscape:window-height="1125"
-     inkscape:window-x="-9"
-     inkscape:window-y="-9"
+     inkscape:window-width="3840"
+     inkscape:window-height="2115"
+     inkscape:window-x="-13"
+     inkscape:window-y="-13"
      inkscape:window-maximized="1"
      inkscape:snap-bbox-midpoints="true"
      inkscape:object-paths="true"
@@ -195,11 +195,6 @@
          d="m 361.17224,486.35254 0,8.15977 8.16528,0.005 z"
          style="color:#000000;fill:url(#linearGradient5194-6);fill-opacity:1;fill-rule:evenodd;stroke:#3c543c;stroke-width:2.08867287999999980;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          id="path4363" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4408"
-         d="m 365.6204,504.51417 0,3.7699 -3.7699,0 0,2.57367 3.7699,0 0,3.7699 2.57367,0 0,-3.7699 3.76991,0 0,-2.57367 -3.76991,0 0,-3.7699 -2.57367,0 z"
-         style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#83fc83;fill-opacity:1;stroke:#04ae04;stroke-width:0.92819434;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans" />
     </g>
   </g>
 </svg>

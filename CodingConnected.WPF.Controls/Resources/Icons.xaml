@@ -1,0 +1,126 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Geometry x:Key="FolderIconGeometry1">F1 M32,32z M0,0z M346.34191,485.75887L367.73171,485.75887 367.73171,510.42613 356.69182,510.42613 346.16942,510.42613z</Geometry>
+  <Geometry x:Key="FolderIconGeometry2">F0 M32,32z M0,0z M368.36652,514.93099L368.36652,494.51781 360.20124,486.35254 347.95334,486.35254 347.95334,514.93099z</Geometry>
+  <Geometry x:Key="FolderIconGeometry3">F0 M32,32z M0,0z M368.36652,514.93099L368.36652,494.51781 360.20124,486.35254 347.95334,486.35254 347.95334,514.93099z</Geometry>
+  <Geometry x:Key="FolderIconGeometry4">F0 M32,32z M0,0z M360.20124,486.35254L360.20124,494.51231 368.36652,494.51731z</Geometry>
+  <Geometry x:Key="FolderIconGeometry5">F1 M32,32z M0,0z M346.34191,485.75887L346.16942,510.42613 355.59301,514.96555 355.59301,489.89882z</Geometry>
+  <DrawingGroup x:Key="FolderIconDrawingGroup" ClipGeometry="M0,0 V32 H32 V0 H0 Z">
+    <DrawingGroup Opacity="1" Transform="1,0,0,1,-343,-484.36221">
+      <DrawingGroup Opacity="1">
+        <GeometryDrawing Geometry="{StaticResource FolderIconGeometry1}">
+          <GeometryDrawing.Brush>
+            <LinearGradientBrush StartPoint="373.0206,451.85254" EndPoint="373.09534,471.68121" MappingMode="Absolute" SpreadMethod="Pad" Opacity="1" Transform="0.88734371,0,0,0.88734371,19.452948,93.635034">
+              <GradientStop Color="#FFFBE8A2" Offset="0" />
+              <GradientStop Color="#FFECCD83" Offset="1" />
+            </LinearGradientBrush>
+          </GeometryDrawing.Brush>
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FFD2B26B" Thickness="1.86300004" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+        </GeometryDrawing>
+        <DrawingGroup Opacity="1" Transform="0.79575883,0,0,0.79575883,77.935413,104.21845">
+          <GeometryDrawing Brush="#FFFFFFFF" Geometry="{StaticResource FolderIconGeometry2}">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF3C543C" Thickness="2.6247561" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+          </GeometryDrawing>
+          <GeometryDrawing Geometry="{StaticResource FolderIconGeometry3}">
+            <GeometryDrawing.Brush>
+              <LinearGradientBrush StartPoint="362.84064,484.51328" EndPoint="362.84064,499.00189" MappingMode="Absolute" SpreadMethod="Pad" Opacity="1" Transform="1.0919066,0,0,1.0919066,-37.057151,-44.221683">
+                <GradientStop Color="#FF84FF63" Offset="0" />
+                <GradientStop Color="#7FC1FFB1" Offset="0.72727275" />
+                <GradientStop Color="#00FFFFFF" Offset="1" />
+              </LinearGradientBrush>
+            </GeometryDrawing.Brush>
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF3C543C" Thickness="2.6247561" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+          </GeometryDrawing>
+          <GeometryDrawing Geometry="{StaticResource FolderIconGeometry4}">
+            <GeometryDrawing.Brush>
+              <LinearGradientBrush StartPoint="368.44913,489.65439" EndPoint="364.71014,493.38834" MappingMode="Absolute" SpreadMethod="Pad" Opacity="1" Transform="1.0919066,0,0,1.0919066,-38.028153,-44.221683">
+                <GradientStop Color="#FFB4FFA0" Offset="0" />
+                <GradientStop Color="#FFD9FFCF" Offset="0.71428573" />
+                <GradientStop Color="#FFFFFFFF" Offset="1" />
+                <GradientStop Color="#FFFFFFFF" Offset="1" />
+              </LinearGradientBrush>
+            </GeometryDrawing.Brush>
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF3C543C" Thickness="2.1838131" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+          </GeometryDrawing>
+        </DrawingGroup>
+        <GeometryDrawing Geometry="{StaticResource FolderIconGeometry5}">
+          <GeometryDrawing.Brush>
+            <LinearGradientBrush StartPoint="373.0206,451.85254" EndPoint="373.09534,471.68121" MappingMode="Absolute" SpreadMethod="Pad" Opacity="1" Transform="0.88734371,0,0,0.88734371,19.452948,93.635034">
+              <GradientStop Color="#FFFBE8A2" Offset="0" />
+              <GradientStop Color="#FFECCD83" Offset="1" />
+            </LinearGradientBrush>
+          </GeometryDrawing.Brush>
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FFD7B671" Thickness="1.86300004" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+        </GeometryDrawing>
+      </DrawingGroup>
+    </DrawingGroup>
+  </DrawingGroup>
+  <DrawingImage x:Key="FolderIconDrawingImage" Drawing="{StaticResource FolderIconDrawingGroup}" />
+  <Geometry x:Key="DriveIconGeometry1">F1 M32,32z M0,0z M380,462.3622L380,472.3622 400,482.3622 400,472.3622z</Geometry>
+  <Geometry x:Key="DriveIconGeometry2">F1 M32,32z M0,0z M380,462.3622L410,452.3622 430,462.3622 400,472.3622z</Geometry>
+  <Geometry x:Key="DriveIconGeometry3">F1 M32,32z M0,0z M400,472.3622L430,462.3622 430,472.3622 400,482.3622z</Geometry>
+  <DrawingGroup x:Key="DriveIconDrawingGroup" ClipGeometry="M0,0 V32 H32 V0 H0 Z">
+    <DrawingGroup Opacity="1" Transform="1,0,0,1,-343,-484.36221">
+      <DrawingGroup Opacity="1" Transform="0.60615856,0,0,0.60615856,113.54522,218.05544">
+        <GeometryDrawing Brush="#FF999999" Geometry="{StaticResource DriveIconGeometry1}">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFFFFF" Geometry="{StaticResource DriveIconGeometry2}">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFE6E6E6" Geometry="{StaticResource DriveIconGeometry3}">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+        </GeometryDrawing>
+      </DrawingGroup>
+    </DrawingGroup>
+  </DrawingGroup>
+  <DrawingImage x:Key="DriveIconDrawingImage" Drawing="{StaticResource DriveIconDrawingGroup}" />
+  <Geometry x:Key="FileIconGeometry1">F0 M32,32z M0,0z M369.33752,514.93099L369.33752,494.51781 361.17224,486.35254 348.92434,486.35254 348.92434,514.93099z</Geometry>
+  <Geometry x:Key="FileIconGeometry2">F0 M32,32z M0,0z M361.17224,486.35254L361.17224,494.51231 369.33752,494.51731z</Geometry>
+  <DrawingGroup x:Key="FileIconDrawingGroup" ClipGeometry="M0,0 V32 H32 V0 H0 Z">
+    <DrawingGroup Opacity="1" Transform="1,0,0,1,-343,-484.36221">
+      <DrawingGroup Opacity="1" Transform="1,0,0,1,0,-0.16157598">
+        <GeometryDrawing Geometry="{StaticResource FileIconGeometry1}">
+          <GeometryDrawing.Brush>
+            <LinearGradientBrush StartPoint="362.84064,484.51328" EndPoint="362.84064,499.00189" MappingMode="Absolute" SpreadMethod="Pad" Opacity="1" Transform="1.0919066,0,0,1.0919066,-37.057151,-44.221683">
+              <GradientStop Color="#FF84FF63" Offset="0" />
+              <GradientStop Color="#7FC1FFB1" Offset="0.72727275" />
+              <GradientStop Color="#00FFFFFF" Offset="1" />
+            </LinearGradientBrush>
+          </GeometryDrawing.Brush>
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF3C543C" Thickness="2.08867288" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+        </GeometryDrawing>
+        <GeometryDrawing Geometry="{StaticResource FileIconGeometry2}">
+          <GeometryDrawing.Brush>
+            <LinearGradientBrush StartPoint="362.84064,484.51328" EndPoint="362.84064,499.00189" MappingMode="Absolute" SpreadMethod="Pad" Opacity="1" Transform="1.0919066,0,0,1.0919066,-37.057151,-44.221683">
+              <GradientStop Color="#FF84FF63" Offset="0" />
+              <GradientStop Color="#7FC1FFB1" Offset="0.72727275" />
+              <GradientStop Color="#00FFFFFF" Offset="1" />
+            </LinearGradientBrush>
+          </GeometryDrawing.Brush>
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF3C543C" Thickness="2.08867288" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+        </GeometryDrawing>
+      </DrawingGroup>
+    </DrawingGroup>
+  </DrawingGroup>
+  <DrawingImage x:Key="FileIconDrawingImage" Drawing="{StaticResource FileIconDrawingGroup}" />
+</ResourceDictionary>
