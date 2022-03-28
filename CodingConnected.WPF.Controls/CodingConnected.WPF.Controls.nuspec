@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>WPF controls by CodingConnected e.U.</description>
     <releaseNotes>First version.</releaseNotes>
-    <copyright>Copyright 2018-2019</copyright>
+    <copyright>Copyright 2018-2022</copyright>
     <tags>WPF controls CodingConnected</tags>
   </metadata>
 </package>

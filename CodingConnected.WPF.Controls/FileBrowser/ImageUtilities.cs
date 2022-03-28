@@ -17,14 +17,27 @@ namespace CodingConnected.WPF.Controls
         public static ImageSource GetIconImage(string filePath)
         {
             var ext = Path.GetExtension(filePath);
-            if (!IconsCache.ContainsKey(ext)) IconsCache.Add(ext, GetRegisteredIcon(filePath).ToImageSource());
+            if (!IconsCache.ContainsKey(ext))
+            {
+                // folder
+                if (ext == "")
+                    IconsCache.Add(ext, GetRegisteredIcon(filePath, true).ToImageSource());
+                // file
+                else
+                    IconsCache.Add(ext, GetRegisteredIcon(filePath).ToImageSource());
+            }
             return IconsCache[ext];
         }
 
-        public static Icon GetRegisteredIcon(string filePath)
+        public static Icon GetRegisteredIcon(string filePath, bool folder = false)
         {
             var shinfo = new SHfileInfo();
-            Win32.SHGetFileInfo(filePath, 0, ref shinfo, (uint)Marshal.SizeOf(shinfo), Win32.SHGFI_ICON | Win32.SHGFI_SMALLICON);
+            var flags = folder
+                // folder: use simple method, since extra flag give wring icons
+                ? Win32.SHGFI_ICON | Win32.SHGFI_SMALLICON
+                // file: extra flags allow for non-existent files
+                : Win32.SHGFI_ICON | Win32.SHGFI_SMALLICON | Win32.SHGFI_SYSICONINDEX | Win32.SHGFI_USEFILEATTRIBUTES;
+            Win32.SHGetFileInfo(filePath, 0, ref shinfo, (uint)Marshal.SizeOf(shinfo), flags);
             return Icon.FromHandle(shinfo.hIcon);
         }
 
@@ -55,8 +68,10 @@ namespace CodingConnected.WPF.Controls
         public const uint SHGFI_ICON = 0x100;
         public const uint SHGFI_LARGEICON = 0x0; // large
         public const uint SHGFI_SMALLICON = 0x1; // small
+        public const uint SHGFI_SYSICONINDEX = 0x000004000;
+        public const uint SHGFI_USEFILEATTRIBUTES = 0x000000010;
 
-        [System.Runtime.InteropServices.DllImport("shell32.dll")]
+       [System.Runtime.InteropServices.DllImport("shell32.dll")]
         public static extern IntPtr SHGetFileInfo(string pszPath, uint dwFileAttributes, ref SHfileInfo psfi, uint cbSizeFileInfo, uint uFlags);
     }
 }
